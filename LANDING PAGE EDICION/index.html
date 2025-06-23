@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JCMEDIA - Edición Profesional de Reels que Convierten</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-background: #00020F;
+            --card-background: rgba(25, 78, 255, 0.1);
+            --card-border-glow: rgba(25, 78, 255, 0.2);
+            --accent-primary: #194EFF;
+            --accent-secondary: #5A6D80;
+            --text-white: #FFFFFF;
+            --text-light: #E0E0E0;
+            --text-muted: #A0A0A0;
+            --shadow-primary-glow: rgba(25, 78, 255, 0.4);
+            --shadow-secondary-glow: rgba(0, 4, 31, 0.5);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-background);
+            color: var(--text-light);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            min-height: 100vh;
+            font-weight: 400;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(15px, 4vw, 20px);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-white);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            text-align: center;
+            margin-bottom: clamp(30px, 6vw, 50px);
+            text-shadow: 0 0 15px var(--shadow-primary-glow);
+            position: relative;
+            padding-bottom: clamp(10px, 3vw, 15px);
+        }
+        h2::after {
+            content: '';
+            display: block;
+            width: clamp(80px, 15vw, 120px);
+            height: clamp(3px, 0.8vw, 4px);
+            background-color: var(--accent-primary);
+            margin: clamp(15px, 3vw, 20px) auto 0;
+            border-radius: 2px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 8px var(--shadow-primary-glow);
+        }
+        h3 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 600;
+            margin-bottom: clamp(10px, 2vw, 15px);
+        }
+        h4 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: 10px;
+        }
+        p, ul, ol, li {
+            color: var(--text-light);
+            font-weight: 400;
+            font-size: clamp(0.95rem, 2vw, 1rem);
+        }
+        .text-muted { color: var(--text-muted); }
+        strong { color: var(--text-white); font-weight: 600; }
+        .section-intro {
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            color: var(--text-muted);
+            margin-bottom: clamp(30px, 6vw, 40px);
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* Glass Card */
+        .glass-card {
+            background-color: var(--card-background);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 var(--shadow-secondary-glow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border-glow);
+            padding: clamp(20px, 5vw, 30px);
+            margin-bottom: clamp(20px, 5vw, 30px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .glass-card.is-visible { opacity: 1; transform: translateY(0); }
+        /* Hero */
+        .hero-section {
+            background: radial-gradient(circle at top left, rgba(25, 78, 255, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at bottom right, rgba(25, 78, 255, 0.05) 0%, transparent 50%),
+                        var(--dark-background);
+            padding: clamp(80px, 15vw, 120px) 0 clamp(50px, 10vw, 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: clamp(500px, 100vh, 700px);
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            color: var(--text-white);
+            line-height: 1.1;
+            text-shadow: 0 0 30px var(--shadow-primary-glow);
+            position: relative;
+            z-index: 1;
+            margin-bottom: clamp(20px, 4vw, 25px);
+        }
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: clamp(20px, 4vw, 25px) auto clamp(40px, 8vw, 50px);
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+        }
+        .background-orb {
+            position: absolute;
+            background-color: rgba(25, 78, 255, 0.15);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+        }
+        .background-orb-1 {
+            width: clamp(200px, 40vw, 300px);
+            height: clamp(200px, 40vw, 300px);
+            top: 10%;
+            left: 5%;
+            animation: moveOrb1 20s infinite alternate ease-in-out;
+        }
+        .background-orb-2 {
+            width: clamp(300px, 60vw, 400px);
+            height: clamp(300px, 60vw, 400px);
+            bottom: 15%;
+            right: 10%;
+            animation: moveOrb2 25s infinite alternate-reverse ease-in-out;
+        }
+        @keyframes moveOrb1 {
+            0% { transform: translate(0, 0) scale(0.8); opacity: 0.6; }
+            50% { transform: translate(50px, 80px) scale(1); opacity: 0.8; }
+            100% { transform: translate(0, 0) scale(0.8); opacity: 0.6; }
+        }
+        @keyframes moveOrb2 {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+            50% { transform: translate(-70px, -50px) scale(0.9); opacity: 0.5; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+        }
+        /* Botones */
+        .btn-primary, .price-button, .nav-contact-btn {
+            background-color: var(--accent-primary);
+            color: white;
+            font-weight: 700;
+            padding: clamp(12px, 3vw, 18px) clamp(25px, 6vw, 45px);
+            border-radius: 9999px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 8px 30px var(--shadow-primary-glow);
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+        }
+        .btn-primary:hover, .price-button:hover, .nav-contact-btn:hover {
+            background-color: #3B6AFF;
+            transform: translateY(-7px) scale(1.02);
+            box-shadow: 0 10px 35px var(--shadow-primary-glow);
+        }
+        /* Benefit Cards */
+        .benefit-card {
+            background-color: rgba(0, 4, 31, 0.6);
+            border-radius: 12px;
+            padding: clamp(25px, 5vw, 30px);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            border: 1px solid rgba(25, 78, 255, 0.1);
+            box-shadow: 0 8px 25px var(--shadow-secondary-glow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .benefit-card.is-visible { opacity: 1; transform: translateY(0); }
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 45px var(--shadow-primary-glow);
+            background-color: rgba(0, 4, 31, 0.8);
+        }
+        .benefit-icon {
+            font-size: clamp(3rem, 8vw, 4rem);
+            color: var(--accent-primary);
+            margin-bottom: clamp(15px, 3vw, 20px);
+            text-shadow: 0 0 15px var(--shadow-primary-glow);
+        }
+        .benefit-title {
+            font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: clamp(10px, 2vw, 15px);
+        }
+        .benefit-description {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--text-muted);
+        }
+        /* Numbered Features */
+        .numbered-feature-box {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            padding: clamp(20px, 5vw, 30px);
+            position: relative;
+            border: 1px solid var(--card-border-glow);
+            box-shadow: 0 4px 20px var(--shadow-secondary-glow);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+            text-align: left;
+            padding-left: clamp(20px, 8vw, 80px);
+        }
+        .numbered-feature-box.is-visible { opacity: 1; transform: translateY(0); }
+        .numbered-feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow-primary-glow);
+            background-color: rgba(25, 78, 255, 0.15);
+        }
+        .feature-number {
+            position: absolute;
+            left: clamp(15px, 4vw, 25px);
+            top: clamp(15px, 4vw, 25px);
+            width: clamp(40px, 10vw, 50px);
+            height: clamp(40px, 10vw, 50px);
+            background-color: var(--accent-primary);
+            color: white;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            box-shadow: 0 0 20px var(--shadow-primary-glow);
+        }
+        .feature-title {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: clamp(8px, 2vw, 10px);
+        }
+        .feature-description {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        /* Portfolio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(15px, 4vw, 30px);
+            margin-top: clamp(30px, 6vw, 50px);
+        }
+        .portfolio-item {
+            background-color: rgba(0, 4, 31, 0.6);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px var(--shadow-secondary-glow);
+            border: 1px solid rgba(25, 78, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .portfolio-item.is-visible { opacity: 1; transform: translateY(0); }
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-primary-glow);
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: clamp(180px, 40vw, 250px);
+            object-fit: cover;
+            display: block;
+        }
+        .portfolio-info {
+            padding: clamp(15px, 4vw, 20px);
+        }
+        .portfolio-title {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: 8px;
+        }
+        /* Testimonios */
+        .testimonial-card {
+            background-color: var(--card-background);
+            border-radius: 16px;
+            padding: clamp(25px, 5vw, 30px);
+            text-align: center;
+            border: 1px solid var(--card-border-glow);
+            box-shadow: 0 8px 25px var(--shadow-secondary-glow);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+        .testimonial-card.is-visible { opacity: 1; transform: translateY(0); }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-primary-glow);
+        }
+        .testimonial-quote {
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            color: var(--text-light);
+            margin-bottom: clamp(15px, 3vw, 20px);
+            font-style: italic;
+        }
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--text-white);
+            font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+        }
+        /* Servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: clamp(30px, 6vw, 50px);
+            margin-bottom: clamp(30px, 6vw, 50px);
+        }
+        .service-card {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            padding: clamp(20px, 5vw, 30px);
+            text-align: center;
+            border: 1px solid var(--card-border-glow);
+            box-shadow: 0 4px 20px var(--shadow-secondary-glow);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+        .service-card.is-visible { opacity: 1; transform: translateY(0); }
+        /* Precios */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(20px, 5vw, 30px);
+            margin-top: clamp(30px, 6vw, 50px);
+        }
+        .pricing-card {
+            background-color: var(--card-background);
+            border-radius: 16px;
+            padding: clamp(30px, 6vw, 35px);
+            text-align: center;
+            border: 1px solid var(--card-border-glow);
+            box-shadow: 0 8px 25px var(--shadow-secondary-glow);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .pricing-card.is-visible { opacity: 1; transform: translateY(0); }
+        .pricing-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 45px var(--shadow-primary-glow);
+            background-color: rgba(25, 78, 255, 0.2);
+        }
+        .pricing-card.highlight {
+            border: 3px solid var(--accent-primary);
+            background-color: rgba(25, 78, 255, 0.3);
+            box-shadow: 0 0 60px var(--accent-primary);
+        }
+        .price-title {
+            font-size: clamp(1.8rem, 4.5vw, 2rem);
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: clamp(15px, 4vw, 20px);
+            text-shadow: 0 0 10px var(--shadow-primary-glow);
+        }
+        .price-value {
+            font-size: clamp(3rem, 9vw, 4rem);
+            font-weight: 800;
+            color: var(--text-white);
+            margin: clamp(15px, 4vw, 20px) 0;
+            text-shadow: 0 0 20px var(--shadow-primary-glow);
+        }
+        .price-value span {
+            font-size: clamp(1.5rem, 3.5vw, 1.8rem);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .price-feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: clamp(20px, 5vw, 30px);
+            text-align: left;
+            flex-grow: 1;
+        }
+        .price-feature-list li {
+            margin-bottom: clamp(8px, 2vw, 12px);
+            display: flex;
+            align-items: flex-start;
+            color: var(--text-muted);
+            font-size: clamp(0.9rem, 2vw, 1.05rem);
+        }
+        .price-feature-list li::before {
+            content: '✔️';
+            margin-right: clamp(8px, 2vw, 12px);
+            color: var(--accent-primary);
+            font-size: 1.3em;
+            line-height: 1;
+            flex-shrink: 0;
+            text-shadow: 0 0 5px var(--shadow-primary-glow);
+        }
+        .trial-package-card {
+            background-color: rgba(25, 78, 255, 0.15);
+            border-radius: 16px;
+            padding: clamp(25px, 6vw, 35px);
+            text-align: center;
+            border: 2px solid var(--accent-primary);
+            box-shadow: 0 0 30px var(--shadow-primary-glow);
+            margin-top: clamp(30px, 5vw, 50px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+        .trial-package-card.is-visible { opacity: 1; transform: translateY(0); }
+        /* FAQ */
+        .faq-item {
+            background-color: rgba(0, 4, 31, 0.6);
+            border-radius: 12px;
+            margin-bottom: clamp(10px, 3vw, 15px);
+            overflow: hidden;
+            border: 1px solid rgba(25, 78, 255, 0.1);
+            box-shadow: 0 4px 15px var(--shadow-secondary-glow);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+        .faq-item.is-visible { opacity: 1; transform: translateY(0); }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(15px, 4vw, 20px);
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-white);
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+        }
+        .faq-answer {
+            padding: 0 clamp(15px, 4vw, 20px) clamp(15px, 4vw, 20px);
+            color: var(--text-muted);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+        .faq-answer.open {
+            max-height: 200px;
+            padding-top: clamp(5px, 1vw, 10px);
+        }
+        .faq-question svg { transition: transform 0.3s; }
+        .faq-question.open svg { transform: rotate(180deg); }
+        /* Sticky Nav */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(0, 2, 15, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+            padding: clamp(10px, 3vw, 15px) 0;
+        }
+        .nav-link {
+            padding: clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 18px);
+            border-radius: 8px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-white);
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px var(--shadow-primary-glow);
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--shadow-primary-glow);
+        }
+        .nav-logo {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: var(--text-white);
+            text-shadow: 0 0 15px var(--shadow-primary-glow);
+            letter-spacing: 2px;
+        }
+        /* Mobile Nav */
+        #mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 2, 15, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            padding-bottom: clamp(10px, 4vw, 20px);
+            transition: transform 0.3s, opacity 0.3s, visibility 0.3s;
+            transform-origin: top;
+            transform: scaleY(0);
+            opacity: 0;
+            visibility: hidden;
+            overflow: hidden;
+        }
+        #mobile-menu.active {
+            transform: scaleY(1);
+            opacity: 1;
+            visibility: visible;
+        }
+        .nav-link-mobile {
+            font-size: clamp(1rem, 3.5vw, 1.15rem);
+            color: var(--text-white);
+            font-weight: 600;
+            display: block;
+            padding: clamp(8px, 3vw, 12px) 0;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .nav-link-mobile:hover {
+            background-color: rgba(25, 78, 255, 0.2);
+            transform: scale(1.02);
+        }
+        /* Footer */
+        .footer-section {
+            background-color: var(--dark-background);
+            padding: clamp(30px, 8vw, 50px) 0;
+            text-align: center;
+            border-top: 1px solid rgba(25, 78, 255, 0.1);
+            margin-top: clamp(30px, 8vw, 50px);
+            color: var(--text-muted);
+            box-shadow: 0 -8px 30px rgba(0, 4, 31, 0.5);
+        }
+        .footer-logo {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            color: var(--text-white);
+            text-shadow: 0 0 15px var(--shadow-primary-glow);
+            letter-spacing: 2px;
+            margin-bottom: clamp(15px, 4vw, 20px);
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: clamp(15px, 4vw, 30px);
+            margin: clamp(15px, 4vw, 20px) 0 clamp(20px, 5vw, 30px);
+            flex-wrap: wrap;
+        }
+        .footer-link {
+            color: var(--text-muted);
+            transition: color 0.3s, text-shadow 0.3s;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+        .footer-link:hover {
+            color: var(--text-white);
+            text-shadow: 0 0 10px var(--shadow-primary-glow);
+        }
+        .footer-text-mission {
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto clamp(20px, 5vw, 30px);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            font-weight: 400;
+        }
+        /* Responsive */
+        @media (max-width: 767px) {
+            .numbered-feature-box .feature-number {
+                position: relative;
+                left: auto;
+                top: auto;
+                margin: 0 auto clamp(10px, 3vw, 15px);
+            }
+            .numbered-feature-box {
+                padding-left: clamp(20px, 5vw, 25px);
+                text-align: center;
+            }
+            .portfolio-grid { grid-template-columns: 1fr; }
+        }
+        @media (min-width: 768px) {
+            .nav-contact-btn { display: block; }
+            #menu-toggle { display: none !important; }
+            #mobile-menu { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Navigation -->
+    <nav class="sticky-nav">
+        <div class="container flex justify-between items-center py-2">
+            <div class="nav-logo">JCMEDIA</div>
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                
+            </button>
+           
+            <a href="#contact" class="nav-contact-btn hidden md:block">Contáctame</a>
+        </div>
+        
+        </div>
+    </nav>
+    <div class="container">
+        <!-- Hero -->
+        <section id="hero" class="hero-section">
+            <div class="background-orb background-orb-1"></div>
+            <div class="background-orb background-orb-2"></div>
+            <div class="max-w-5xl mx-auto text-center relative z-10">
+                <h1 class="hero-title">Reels que Convierten y Crecen tu Marca</h1>
+                <p class="hero-subtitle">
+                    Con JCMEDIA, transformo tus ideas en videos estratégicos para Instagram y TikTok que aumentan tu alcance hasta un 20% y generan ventas reales. ¡Olvídate de la edición tediosa!
+                </p>
+                <a href="#contact" class="btn-primary">Agenda una Llamada Gratis</a>
+            </div>
+        </section>
+        <!-- Sobre Mí -->
+        <section id="about" class="glass-card">
+            <h2>Sobre Mí</h2>
+            <p class="section-intro">
+                Soy Jeffry, fundador de JCMEDIA, un apasionado por la edición de video con más de 5 años de experiencia ayudando a emprendedores y marcas a destacar en redes sociales. Especializado en Reels dinámicos, trabajo con nichos como cultura, motivación y negocios, adaptándome a tu visión para crear contenido que conecta y convierte.
+            </p>
+            <p class="section-intro mt-4">
+                Mi enfoque combina estrategia, producción de alta calidad y automatización para que tú te enfoques en crecer, mientras yo me encargo de los detalles. ¡Hagamos que tu marca brille!
+            </p>
+        </section>
+        <!-- Problema/Solución -->
+        <section id="problem-solution" class="glass-card">
+            <h2>¿Te enfrentas a estos desafíos?</h2>
+            <p class="section-intro">
+                Muchas marcas y creadores luchan por destacar en redes. Con JCMEDIA, convertimos esos obstáculos en oportunidades.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                <div class="benefit-card" data-animation="slideInLeft">
+                    <span class="benefit-icon">⏳</span>
+                    <h4 class="benefit-title">Falta de Tiempo</h4>
+                    <p class="benefit-description">La edición consume horas que podrías dedicar a tu negocio.</p>
+                </div>
+                <div class="benefit-card" data-animation="slideInRight">
+                    <span class="benefit-icon">📉</span>
+                    <h4 class="benefit-title">Bajo Engagement</h4>
+                    <p class="benefit-description">Videos sin impacto que no captan tu audiencia.</p>
+                </div>
+                <div class="benefit-card" data-animation="slideInLeft" data-delay="0.2s">
+                    <span class="benefit-icon">💸</span>
+                    <h4 class="benefit-title">Poca Conversión</h4>
+                    <p class="benefit-description">Reels que no generan clientes ni ventas.</p>
+                </div>
+                <div class="benefit-card" data-animation="slideInRight" data-delay="0.2s">
+                    <span class="benefit-icon">👥</span>
+                    <h4 class="benefit-title">Competencia Feroz</h4>
+                    <p class="benefit-description">Quedarte atrás por falta de contenido profesional.</p>
+                </div>
+            </div>
+            <div class="text-center mt-10">
+                <h3>¡JCMEDIA es la solución!</h3>
+                <p class="text-lg text-muted max-w-2xl mx-auto mt-4">
+                    Con estrategia personalizada, producción de calidad y automatización, tus Reels destacarán y crecerán tu marca.
+                </p>
+            </div>
+        </section>
+        <!-- Beneficios -->
+        <section id="benefits" class="glass-card">
+            <h2>Beneficios que Transforman tu Marca</h2>
+            <p class="section-intro">
+                Mi enfoque integral basado en Crecimiento 360° potencia tu presencia digital con resultados medibles.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                <div class="benefit-card" data-animation="fadeIn" data-delay="0s">
+                    <span class="benefit-icon">📈</span>
+                    <h4 class="benefit-title">Alcance Incrementado</h4>
+                    <p class="benefit-description">Aumenta tus vistas un 20% con Reels optimizados.</p>
+                </div>
+                <div class="benefit-card" data-animation="fadeIn" data-delay="0.2s">
+                    <span class="benefit-icon">💡</span>
+                    <h4 class="benefit-title">Estrategia Personalizada</h4>
+                    <p class="benefit-description">Planes y guiones adaptados a tu nicho.</p>
+                </div>
+                <div class="benefit-card" data-animation="fadeIn" data-delay="0.4s">
+                    <span class="benefit-icon">🎥</span>
+                    <h4 class="benefit-title">Producción Profesional</h4>
+                    <p class="benefit-description">Edición premium con opción de grabación.</p>
+                </div>
+                <div class="benefit-card" data-animation="fadeIn" data-delay="0.6s">
+                    <span class="benefit-icon">⏱️</span>
+                    <h4 class="benefit-title">Ahorro de Tiempo</h4>
+                    <p class="benefit-description">Automatización que te ahorra 10 horas semanales.</p>
+                </div>
+                <div class="benefit-card" data-animation="fadeIn" data-delay="0.8s">
+                    <span class="benefit-icon">💲</span>
+                    <h4 class="benefit-title">Más Ventas</h4>
+                    <p class="benefit-description">Reels diseñados para convertir espectadores.</p>
+                </div>
+                <div class="benefit-card" data-animation="fadeIn" data-delay="1s">
+                    <span class="benefit-icon">🌟</span>
+                    <h4 class="benefit-title">Autoridad en tu Nicho</h4>
+                    <p class="benefit-description">Contenido que te posiciona como líder.</p>
+                </div>
+            </div>
+        </section>
+        <!-- Proceso -->
+        <section id="how-it-works" class="glass-card">
+            <h2>Mi Proceso Crecimiento 360°</h2>
+            <p class="section-intro">
+                Un enfoque paso a paso para transformar tu contenido con estrategia, producción y automatización.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-10">
+                <div class="numbered-feature-box" data-animation="fadeIn" data-delay="0s">
+                    <div class="feature-number">1</div>
+                    <h4 class="feature-title">Estrategia</h4>
+                    <p class="feature-description">Definimos metas con un briefing y auditoría inicial.</p>
+                </div>
+                <div class="numbered-feature-box" data-animation="fadeIn" data-delay="0.2s">
+                    <div class="feature-number">2</div>
+                    <h4 class="feature-title">Producción</h4>
+                    <p class="feature-description">Editamos tu material con calidad premium.</p>
+                </div>
+                <div class="numbered-feature-box" data-animation="fadeIn" data-delay="0.4s">
+                    <div class="feature-number">3</div>
+                    <h4 class="feature-title">Optimización</h4>
+                    <p class="feature-description">Añadimos guiones y hashtags para maximizar impacto.</p>
+                </div>
+                <div class="numbered-feature-box" data-animation="fadeIn" data-delay="0.6s">
+                    <div class="feature-number">4</div>
+                    <h4 class="feature-title">Automatización</h4>
+                    <p class="feature-description">Programamos y analizamos métricas para resultados continuos.</p>
+                </div>
+            </div>
+            <p class="text-center text-sm text-muted mt-6">
+                Un proceso fluido para que crezcas sin esfuerzo.
+            </p>
+        </section>
+        <!-- Portafolio -->
+        <section id="portfolio" class="glass-card">
+            <h2>Portafolio de Éxito</h2>
+            <p class="section-intro">
+            Explora Reels que han impulsado a mis clientes a destacar en redes.
+            </p>
+            <div class="portfolio-grid">
+            <a href="https://www.instagram.com/reel/DJ9qVF3tyd0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="portfolio-item" data-animation="fadeIn" data-delay="0s" style="padding:0;">
+                <iframe src="https://www.instagram.com/reel/DJ9qVF3tyd0/embed" width="100%" height="400" frameborder="0" allowfullscreen style="display:block;"></iframe>
+                <div class="portfolio-info">
+                <h4 class="portfolio-title">Entrenador Personal</h4>
+                <p class="text-sm text-muted">Contenido que muestra resultados de entrenamiento.</p>
+                </div>
+            </a>
+            <a href="https://www.instagram.com/reel/DIO2MIkNwuB/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="portfolio-item" data-animation="fadeIn" data-delay="0.2s" style="padding:0;">
+                <iframe src="https://www.instagram.com/reel/DIO2MIkNwuB/embed" width="100%" height="400" frameborder="0" allowfullscreen style="display:block;"></iframe>
+                <div class="portfolio-info">
+                <h4 class="portfolio-title">Tip de Tenis</h4>
+                <p class="text-sm text-muted">Contenido útil para mejorar tu juego.</p>
+                </div>
+            </a>
+            <a href="https://www.instagram.com/reel/DJ7qES8yL_5/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="portfolio-item" data-animation="fadeIn" data-delay="0.4s" style="padding:0;">
+                <iframe src="https://www.instagram.com/reel/DJ7qES8yL_5/embed" width="100%" height="400" frameborder="0" allowfullscreen style="display:block;"></iframe>
+                <div class="portfolio-info">
+                <h4 class="portfolio-title">Videos Llamativos</h4>
+                <p class="text-sm text-muted">Contenido atractivo que capta la atención.</p>
+                </div>
+            </a>
+            </div>
+        </section>
+        <!-- Testimonios -->
+        <section id="testimonials" class="glass-card">
+            <h2>Testimonios de Éxito</h2>
+            <p class="section-intro">
+                Mis clientes confirman el impacto de Crecimiento 360°.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                <div class="testimonial-card" data-animation="slideInLeft">
+                    <p class="testimonial-quote">"Mis Reels ahora tienen un 25% más de vistas gracias a Jeff. ¡Increíble calidad!"</p>
+                    <p class="testimonial-author">- Ana G., Emprendedora</p>
+                </div>
+                <div class="testimonial-card" data-animation="slideInRight">
+                    <p class="testimonial-quote">"La estrategia y automatización me han ahorrado horas. Resultados impresionantes."</p>
+                    <p class="testimonial-author">- Marco T., Negocio Local</p>
+                </div>
+                <div class="testimonial-card" data-animation="slideInLeft" data-delay="0.2s">
+                    <p class="testimonial-quote">"Adaptaron mi estilo a la perfección. Mi audiencia creció mucho."</p>
+                    <p class="testimonial-author">- Laura S., Coach</p>
+                </div>
+                <div class="testimonial-card" data-animation="slideInRight" data-delay="0.2s">
+                    <p class="testimonial-quote">"Contenido de calidad sin estrés. ¡Altamente recomendado!"</p>
+                    <p class="testimonial-author">- David R., Creador</p>
+                </div>
+            </div>
+        </section>
+        <!-- Servicios -->
+        <section id="services" class="glass-card">
+            <h2>Servicios Crecimiento 360°</h2>
+            <p class="section-intro">
+            Una solución integral para transformar tu marca con estrategia, producción y automatización.
+            </p>
+            <div class="services-grid">
+            <div class="service-card flex flex-col items-center" data-animation="fadeIn" data-delay="0s" style="position:relative;">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full mb-4" style="background:rgba(25,78,255,0.12); box-shadow:0 0 20px rgba(25,78,255,0.18);">
+                <span class="text-3xl font-bold text-white" style="text-shadow:0 0 10px #194EFF;">01</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Estrategia de Contenidos</h3>
+                <p class="text-muted text-base">Auditorías, calendarios y guiones para un engagement del <span class="text-accent-primary font-bold">20% más</span>.</p>
+            </div>
+            <div class="service-card flex flex-col items-center" data-animation="fadeIn" data-delay="0.2s" style="position:relative;">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full mb-4" style="background:rgba(25,78,255,0.12); box-shadow:0 0 20px rgba(25,78,255,0.18);">
+                <span class="text-3xl font-bold text-white" style="text-shadow:0 0 10px #194EFF;">02</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Producción Audiovisual</h3>
+                <p class="text-muted text-base">Edición <span class="text-accent-primary font-bold">premium</span> con entregas rápidas.</p>
+            </div>
+            <div class="service-card flex flex-col items-center" data-animation="fadeIn" data-delay="0.4s" style="position:relative;">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full mb-4" style="background:rgba(25,78,255,0.12); box-shadow:0 0 20px rgba(25,78,255,0.18);">
+                <span class="text-3xl font-bold text-white" style="text-shadow:0 0 10px #194EFF;">03</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Automatización de Redes</h3>
+                <p class="text-muted text-base">Programación y métricas que ahorran <span class="text-accent-primary font-bold">10 horas semanales</span>.</p>
+            </div>
+            </div>
+        <!-- Sección de Precios -->
+<section id="pricing" class="glass-card">
+    <h2>Inversión para tu Crecimiento 360°</h2>
+    <p class="section-intro">
+        Elige el plan que mejor se adapte a tus necesidades y comienza a transformar tu presencia digital.
+    </p>
+    <div class="pricing-grid">
+        <!-- Paquete Impulso -->
+        <div class="pricing-card" data-animation="fadeIn" data-delay="0s">
+            <h3 class="price-title">Plan Starter</h3>
+            <p class="price-value">
+                <span style="text-decoration:line-through; color:#A0A0A0; font-size:1.2rem; margin-right:8px;">$120</span>
+                $100<span>/mes</span>
+            </p>
+            <p class="text-sm text-muted mb-4">Perfecto para empezar a destacar en redes.</p>
+            <ul class="price-feature-list">
+                <li>5 Reels al Mes</li>
+                <li>5 Guiones personalizados</li>
+                <li>Minaturas personalizadas para cada Reel</li>
+                <li>Auditoría inicial de tu cuenta</li>
+                <li>Edición profesional con estilo consistente</li>
+                <li>Música licenciada y efectos de sonido</li>
+                <li>3 revisiones por Reel</li>
+                <li>Entrega de 3 a 4 Reels por día</li>
+                <li>Reporte básico</li>
+            </ul>
+            <a href="https://wa.me/+573006493668" target="_blank" class="btn-primary mt-4 inline-block">¡Empezar Ahora!</a>
+        </div>
+
+        <!-- Paquete Crecimiento -->
+        <div class="pricing-card highlight" data-animation="fadeIn" data-delay="0.2s">
+            <h3 class="price-title">Plan Pro</h3>
+            <p class="price-value">
+                <span style="text-decoration:line-through; color:#A0A0A0; font-size:1.2rem; margin-right:8px;">$250</span>
+                $200<span>/mes</span>
+            </p>
+            <p class="text-sm text-muted mb-4">El paquete más popular para crecimiento acelerado</p>
+            <ul class="price-feature-list">
+                <li>10 Reels al Mes</li>
+                <li>10 Guiones personalizados</li>
+                <li>Minaturas personalizadas para cada Reel</li>
+                <li>Auditoría inicial + calendario mensual</li>
+                <li>Edición profesional con estilo consistente</li>
+                <li>Música licenciada y efectos de sonido</li>
+                <li>Automatización básica (programación)</li>
+                <li>3 revisiones por Reel</li>
+                <li>Entrega de 3 a 4 Reels por día</li>
+                <li>Reporte mensual</li>
+            </ul>
+            <a href="https://wa.me/+573006493668" target="_blank" class="btn-primary mt-4 inline-block">¡Quiero Crecimiento!</a>
+        </div>
+
+        <!-- Paquete Autoridad -->
+        <div class="pricing-card" data-animation="fadeIn" data-delay="0.4s">
+            <h3 class="price-title">Plan Élite</h3>
+            <p class="price-value">
+                <span style="text-decoration:line-through; color:#A0A0A0; font-size:1.2rem; margin-right:8px;">$600</span>
+                $500<span>/mes</span>
+            </p>
+            <p class="text-sm text-muted mb-4">Domina tu nicho con contenido premium y viralidad.</p>
+            <ul class="price-feature-list">
+                <li>20 Reels al Mes</li>
+                <li>20 Guiones personalizados</li>
+                <li>Minaturas personalizadas para cada Reel</li>
+                <li>Estrategia avanzada (calendario, análisis)</li>
+                <li>Edición profesional con estilo consistente</li>
+                <li>Música licenciada y efectos de sonido</li>
+                <li>Automatización completa (programación + métricas)</li>
+                <li>3 revisiones por Reel</li>
+                <li>Entrega de 3 a 4 Reels por día</li>
+            </ul>
+            <a href="https://wa.me/+573006493668" target="_blank" class="btn-primary mt-4 inline-block">Impulso Autoridad</a>
+        </div>
+    </div>
+    <div class="trial-package-card is-visible">
+        <h3>¿No estás seguro? Prueba el paquete inicial</h3>
+        <p class="text-muted mt-4 text-lg">
+            Obtén <strong>1 Reel de prueba gratuito</strong> para que veas la calidad y el impacto de mi trabajo.
+            ¡Sin compromiso!
+        </p>
+        <a href="https://wa.me/+573006493668" target="_blank" class="btn-primary mt-4 inline-block">Solicitar Prueba Gratuita</a>
+    </div>
+</section>
+
+<section id="faq" class="glass-card">
+            <h2>Preguntas Frecuentes</h2>
+            <p class="section-intro">
+                Aquí te resuelvo las dudas más comunes sobre mis servicios.
+            </p>
+            <div class="mt-10">
+                <div class="faq-item" data-animation="fadeIn" data-delay="0s">
+                    <div class="faq-question">
+                        <span>¿Cómo es el proceso de envío de material?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        Puedes enviar tus videos a través de plataformas en la nube como Google Drive, Dropbox o Wetransfer. Te proporcionaré las instrucciones detalladas una vez que contrates un plan.
+                    </div>
+                </div>
+                <div class="faq-item" data-animation="fadeIn" data-delay="0.1s">
+                    <div class="faq-question">
+                        <span>¿Cuál es el tiempo de entrega de los Reels?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        El tiempo de entrega depende de la cantidad de Reels y el plan elegido. Entrego entre 3 y 4 Reels por día hábil, así que por ejemplo: si contratas el Plan Starter (5 Reels), los tendrás listos en 2 días; el Plan Pro (10 Reels) en 3 a 4 días; y el Plan Élite (20 Reels) en 5 a 7 días, siempre contando desde que recibo todo el material necesario.
+                    </div>
+                </div>
+                <div class="faq-item" data-animation="fadeIn" data-delay="0.2s">
+                    <div class="faq-question">
+                        <span>¿Ofrecen revisiones ilimitadas?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        Sí, todos los planes incluyen revisiones para que quedes satisfecho con el resultado. Si necesitas revisiones adicionales, puedes solicitarlas con un costo extra.
+                    </div>
+                </div>
+                <div class="faq-item" data-animation="fadeIn" data-delay="0.3s">
+                    <div class="faq-question">
+                        <span>¿Pueden ayudarme con la estrategia de contenido?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        ¡Absolutamente! Mi servicio va más allá de la edición. Con los planes Pro y Élite, recibirás asesoramiento estratégico, guiones personalizados y optimización para asegurar que tus Reels no solo se vean bien, sino que también conviertan.
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="glass-card">
+            <h2>¡Impulsa tu Marca Hoy!</h2>
+            <p class="section-intro">
+            Estoy listo para llevar tus Reels al siguiente nivel. Contáctame directamente por WhatsApp y hablemos de tus ideas.
+            </p>
+            <div class="text-center mt-10">
+            <a href="https://wa.me/+573006493668" target="_blank" class="btn-primary mt-4 inline-block">Enviar WhatsApp</a>
+            </div>
+        </section>
+        <footer class="footer-section">
+            <div class="footer-logo">JCMEDIA</div>
+            <p class="text-base footer-text-mission">
+                Tu aliado en contenido de video que convierte visitas en clientes con Crecimiento 360°.
+            </p>
+            <div class="footer-links">
+                <a href="#hero" class="footer-link">Inicio</a>
+                <a href="#about" class="footer-link">Sobre Mí</a>
+                <a href="#services" class="footer-link">Servicios</a>
+                <a href="#pricing" class="footer-link">Precios</a>
+                <a href="#contact" class="footer-link">Contacto</a>
+            </div>
+            <p class="text-sm text-muted mt-4">© 2025 JCMEDIA. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+<script>
+    // Toggle Mobile Menu
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Toggle FAQ
+        // Modified FAQ toggle function to work with max-height for smooth transition
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = question.classList.contains('open');
+
+                // Close all other open answers
+                document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
+                    if (openAnswer !== answer) { // Don't close the current one if it's already open
+                        openAnswer.classList.remove('open');
+                        openAnswer.style.maxHeight = null; // Collapse the height
+                        openAnswer.previousElementSibling.classList.remove('open');
+                    }
+                });
+
+                // Toggle current FAQ item
+                if (!isOpen) {
+                    question.classList.add('open');
+                    answer.classList.add('open');
+                    answer.style.maxHeight = answer.scrollHeight + 'px'; // Expand to content height
+                } else {
+                    question.classList.remove('open');
+                    answer.classList.remove('open');
+                    answer.style.maxHeight = null; // Collapse the height
+                }
+            });
+        });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer para animaciones
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = entry.target.dataset.delay || '0s';
+                        entry.target.style.transitionDelay = delay;
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.glass-card, .benefit-card, .numbered-feature-box, .portfolio-item, .testimonial-card, .faq-item, .pricing-card, .trial-package-card, .service-card').forEach(el => {
+                observer.observe(el);
+            });
+            // Smooth scroll y nav activo
+            const allNavLinks = document.querySelectorAll('.nav-link, .btn-primary, .nav-link-mobile, .footer-link, .price-button');
+            allNavLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+            const sections = document.querySelectorAll('section[id]');
+            const desktopNavLinks = document.querySelectorAll('.nav-link');
+            const mobileNavLinks = document.querySelectorAll('.nav-link-mobile');
+            const highlightNav = () => {
+                let current = '';
+                sections.forEach(section => {
+                    const stickyNav = document.querySelector('.sticky-nav');
+                    const stickyNavHeight = stickyNav ? stickyNav.offsetHeight : 0;
+                    const sectionTop = section.offsetTop - (stickyNavHeight + 20);
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                desktopNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') && link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+                mobileNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') && link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+            window.addEventListener('scroll', highlightNav);
+            highlightNav();
+            // Menú móvil
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const allMobileLinks = mobileMenu.querySelectorAll('a');
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('active');
+                const iconPath = menuToggle.querySelector('path');
+                if (mobileMenu.classList.contains('active')) {
+                    iconPath.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+                } else {
+                    iconPath.setAttribute('d', 'M4 6h16M4 12h16m-4 6h4');
+                }
+            });
+            allMobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    mobileMenu.classList.add('hidden');
+                    menuToggle.querySelector('path').setAttribute('d', 'M4 6h16M4 12h16m-4 6h4');
+                });
+            });
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('active');
+                    menuToggle.querySelector('path').setAttribute('d', 'M4 6h16M4 12h16m-4 6h4');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+```
